@@ -1,0 +1,62 @@
+[
+  {
+    "description": "단순 질의 - 개념 설명",
+    "query": "블록체인이 뭐야?",
+    "policy": "balanced",
+    "expected_task_type": "simple_qa"
+  },
+  {
+    "description": "문장 수정 - 이메일 교정",
+    "query": "이 이메일 문장을 자연스럽게 고쳐줘: 안녕하세요 제가 문의드리고 싶은 것은 지난번 회의에서 이야기한 프로젝트 일정 관련해서 입니다",
+    "policy": "carbon_first",
+    "expected_task_type": "writing_edit"
+  },
+  {
+    "description": "요약 - 긴 텍스트 요약",
+    "query": "다음 보고서를 3줄로 요약해줘: 2024년 글로벌 AI 시장은 전년 대비 35% 성장하여 약 1800억 달러 규모에 도달했습니다. 특히 생성형 AI 분야가 전체 성장의 60%를 견인했으며, 기업용 AI 솔루션 수요가 크게 증가했습니다.",
+    "policy": "cost_first",
+    "expected_task_type": "summarize"
+  },
+  {
+    "description": "코딩 보조 - 간단한 함수 작성",
+    "query": "Python으로 피보나치 수열을 반환하는 함수를 구현해줘",
+    "policy": "balanced",
+    "expected_task_type": "coding"
+  },
+  {
+    "description": "코딩 보조 - 복잡한 시스템 구현",
+    "query": "마이크로서비스 아키텍처에서 분산 트랜잭션을 처리하는 Saga 패턴을 구현해줘. 대규모 트래픽 최적화와 장애 복구까지 포함해서 상세하게 설계해줘",
+    "policy": "quality_first",
+    "expected_task_type": "coding"
+  },
+  {
+    "description": "복잡한 추론 - 아키텍처 분석",
+    "query": "AWS Lambda vs ECS Fargate의 장단점을 비교 분석하고, 일일 요청 100만건 규모의 API 서버에 어떤 것이 적합한지 평가해줘",
+    "policy": "quality_first",
+    "expected_task_type": "reasoning"
+  },
+  {
+    "description": "번역 - 한영 번역",
+    "query": "다음 문장을 영어로 번역해줘: 우리 회사는 지속가능한 AI 서비스를 개발하고 있습니다",
+    "policy": "carbon_first",
+    "expected_task_type": "translate"
+  },
+  {
+    "description": "기획/창작 - 마케팅 기획",
+    "query": "친환경 AI 서비스를 홍보하기 위한 SNS 마케팅 전략을 브레인스토밍해줘",
+    "policy": "balanced",
+    "expected_task_type": "planning"
+  },
+  {
+    "description": "중요/민감 답변 - 법률 자문",
+    "query": "개인정보보호법에 따라 AI 서비스에서 사용자 데이터를 처리할 때 법적으로 반드시 준수해야 하는 사항을 정확히 알려줘",
+    "policy": "quality_first",
+    "expected_task_type": "sensitive"
+  },
+  {
+    "description": "단순 질의 - 비용 우선",
+    "query": "Python에서 list와 tuple의 차이가 뭐야?",
+    "policy": "cost_first",
+    "expected_task_type": "simple_qa"
+  }
+]

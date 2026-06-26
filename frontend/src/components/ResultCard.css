@@ -1,0 +1,147 @@
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.model-label {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.model-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 0.15rem;
+}
+
+.result-tags {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.task-tag {
+  background: rgba(78, 205, 196, 0.12);
+  color: var(--mint-dark);
+}
+
+.diff-tag {
+  background: color-mix(in srgb, var(--tag-color) 12%, white);
+  color: var(--tag-color);
+}
+
+.result-reason {
+  background: var(--gray-50);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-reason p {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.savings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.saving-card {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+}
+
+.saving-icon {
+  font-size: 1.5rem;
+}
+
+.saving-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.saving-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.saving-detail {
+  font-size: 0.7rem;
+  color: var(--gray-500);
+}
+
+.saving-label {
+  font-size: 0.65rem;
+  color: var(--gray-400);
+  margin-top: 0.1rem;
+}
+
+.result-footer {
+  display: flex;
+  gap: 2rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-label {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+}
+
+.footer-value {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .savings-grid {
+    grid-template-columns: 1fr;
+  }
+}
