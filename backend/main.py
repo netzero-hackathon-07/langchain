@@ -20,11 +20,6 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 
 from schemas.route_response import (
-    RouteRequest,
-    RouteResponse,
-    TokenEstimate,
-    CostEstimate,
-    CarbonEstimate,
     HealthResponse,
     PlanRequest,
     PlanResponse,
@@ -51,7 +46,7 @@ if not ANTHROPIC_API_KEY:
     raise RuntimeError("ANTHROPIC_API_KEY가 .env에 설정되지 않았습니다.")
 
 llm_client = AnthropicLLMClient(api_key=ANTHROPIC_API_KEY)
-print("[ECOCACHE] Claude 3.5 Haiku 연결됨 - 실제 AI 모드")
+print("[ECOCACHE] Claude Haiku 4.5 연결됨 - 실제 AI 모드")
 
 
 # ─── Usage Tracking ($5 한도) ───────────────────────────────────
@@ -64,9 +59,9 @@ usage_tracker = {
 }
 BUDGET_LIMIT_USD = 5.0
 
-# Haiku 가격
-HAIKU_INPUT_PER_1M = 0.80
-HAIKU_OUTPUT_PER_1M = 4.00
+# Haiku 4.5 가격
+HAIKU_INPUT_PER_1M = 1.00
+HAIKU_OUTPUT_PER_1M = 5.00
 
 
 def track_usage(input_tokens: int, output_tokens: int):
@@ -147,13 +142,18 @@ def plan_and_execute(request: PlanRequest):
     if not subtasks:
         raise HTTPException(status_code=500, detail="작업 분해 실패")
 
-    # 분류 호출 토큰 추적 (대략 추정 — 실제 응답에서 가져오면 더 정확)
-    # classify_and_decompose 내부에서 이미 호출됨
+    # 분류 호출 토큰도 사용량에 추적
+    track_usage(
+        classification.get("_classifier_input_tokens", 0),
+        classification.get("_classifier_output_tokens", 0),
+    )
 
     # ─── Step 2: 각 스텝 실제 수행 ───
     steps = []
     total_input = 0
     total_output = 0
+
+    valid_models = set(get_all_models().keys())
 
     for subtask in subtasks:
         step_num = subtask["step"]
@@ -162,6 +162,10 @@ def plan_and_execute(request: PlanRequest):
         difficulty = subtask.get("difficulty", "medium")
         recommended_model = subtask.get("recommended_model", "claude-haiku")
         reason = subtask.get("reason", "")
+
+        # LLM이 카탈로그에 없는 모델을 추천하면 fallback
+        if recommended_model not in valid_models:
+            recommended_model = "gemini-flash"
 
         # 각 스텝을 실제로 수행
         step_prompt = f"""작업: {action}
@@ -206,7 +210,7 @@ def plan_and_execute(request: PlanRequest):
             baseline_co2_g=round(baseline_co2, 6),
             saved_cost_usd=round(max(baseline_cost - selected_cost, 0), 6),
             saved_co2_g=round(max(baseline_co2 - selected_co2, 0), 6),
-            mock_answer=step_response.content,
+            answer=step_response.content,
         ))
 
     # ─── Step 3: 합산 ───
@@ -280,7 +284,7 @@ def plan_as_graph(request: PlanRequest):
             baseline_cost_usd=step.baseline_cost_usd, baseline_co2_g=step.baseline_co2_g,
             reason=step.reason, alternatives=step.alternatives,
             position=NodePosition(x=100 + (step.step - 1) * 300, y=200),
-            mock_answer=step.mock_answer,
+            answer=step.answer,
         ))
 
     edges = []

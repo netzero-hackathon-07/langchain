@@ -79,7 +79,7 @@ class StepDetail(BaseModel):
     baseline_co2_g: float
     saved_cost_usd: float
     saved_co2_g: float
-    mock_answer: str
+    answer: str
 
 
 class PlanResponse(BaseModel):

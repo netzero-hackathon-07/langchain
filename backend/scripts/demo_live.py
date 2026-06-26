@@ -26,8 +26,8 @@ for step in data["steps"]:
     print(f"  토큰: {step['total_tokens']} (in:{step['input_tokens']} + out:{step['output_tokens']})")
     print(f"  AI 응답:")
     # 응답 첫 200자만
-    answer = step["mock_answer"][:300]
-    print(f"  {answer}{'...' if len(step['mock_answer']) > 300 else ''}")
+    answer = step["answer"][:300]
+    print(f"  {answer}{'...' if len(step['answer']) > 300 else ''}")
 
 print("\n" + "=" * 60)
 print(f"총 토큰: {data['total_tokens']}")

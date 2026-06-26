@@ -71,11 +71,9 @@ def classify_and_decompose(
 
     Returns:
         {
-            "subtasks": [
-                {"step": 1, "action": "...", "task_type": "...", "difficulty": "...",
-                 "recommended_model": "...", "reason": "..."},
-                ...
-            ]
+            "subtasks": [...],
+            "_classifier_input_tokens": int,   # 분류 호출에 쓴 토큰
+            "_classifier_output_tokens": int,
         }
     """
     user_prompt = f"""사용자 요청: "{query}"
@@ -91,6 +89,11 @@ def classify_and_decompose(
         temperature=0.3,  # 분류는 일관성 있게
     )
 
+    classifier_tokens = {
+        "_classifier_input_tokens": response.input_tokens,
+        "_classifier_output_tokens": response.output_tokens,
+    }
+
     # JSON 파싱
     try:
         # 응답에서 JSON 추출
@@ -101,6 +104,7 @@ def classify_and_decompose(
             if content.startswith("json"):
                 content = content[4:]
         result = json.loads(content)
+        result.update(classifier_tokens)
         return result
     except (json.JSONDecodeError, IndexError, KeyError):
         # 파싱 실패 시 단일 태스크로 fallback
@@ -114,5 +118,6 @@ def classify_and_decompose(
                     "recommended_model": "claude-haiku",
                     "reason": "분류 실패로 기본 모델을 배정했습니다.",
                 }
-            ]
+            ],
+            **classifier_tokens,
         }

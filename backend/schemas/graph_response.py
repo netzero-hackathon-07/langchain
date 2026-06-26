@@ -33,7 +33,7 @@ class PipelineNode(BaseModel):
     reason: str
     alternatives: List[str]
     position: NodePosition
-    mock_answer: str = ""
+    answer: str = ""
 
 
 class PipelineEdge(BaseModel):

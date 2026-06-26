@@ -16,7 +16,7 @@ from .base_client import BaseLLMClient, LLMResponse
 
 
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
-DEFAULT_MODEL = "claude-3-5-haiku-latest"
+DEFAULT_MODEL = "claude-haiku-4-5-20251001"
 
 
 class AnthropicLLMClient(BaseLLMClient):
