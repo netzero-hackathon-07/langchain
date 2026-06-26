@@ -9,3 +9,4 @@ backend/dist/
 *.zip
 _frontend_ref/
 _backend_ref/
+presentation/
