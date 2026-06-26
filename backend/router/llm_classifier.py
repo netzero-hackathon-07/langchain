@@ -3,62 +3,79 @@
 Claude Haiku 4.5가 직접:
 1. 복합 요청을 서브태스크로 분해
 2. 각 서브태스크의 작업 유형 / 난이도 판단
-3. 각 서브태스크에 최적 모델 추천
+3. data/models.json 전체 카탈로그(18종) 중에서 최적 모델 추천 + 상세 근거
 
-rule-based 로직 완전 대체.
+모델 목록은 model_catalog에서 동적으로 생성하므로,
+data/models.json만 갱신하면 프롬프트에도 자동 반영된다.
 """
 
 import json
 from typing import Optional
 
 from llm.base_client import BaseLLMClient
+from .model_catalog import get_all_models, BASELINE_MODEL_ID
 
-CLASSIFIER_SYSTEM_PROMPT = """너는 ECOCACHE의 AI 라우팅 엔진이야.
-사용자의 요청을 분석해서 서브태스크로 분해하고, 각 태스크에 최적의 AI 모델을 추천해.
 
-사용 가능한 모델 목록:
-- gemini-flash: 저비용, 저탄소, 빠른 응답. 단순 질의/요약/번역/문장 수정에 적합. (CO2: 0.250mg/token, 비용: 매우 저렴)
-- gpt-4o-mini: 범용 저비용 모델. 단순~중간 난이도 작업. (CO2: 0.350mg/token, 비용: 저렴)
-- claude-haiku: 빠른 요약/문장 처리. 단순~중간. (CO2: 0.300mg/token, 비용: 저렴)
-- gpt-4o: 균형형 고품질. 코딩/추론/기획에 적합. (CO2: 0.699mg/token, 비용: 중간)
-- gemini-pro: 중상급 범용. 코딩/추론/기획. (CO2: 0.450mg/token, 비용: 중간)
-- claude-sonnet: 복잡한 추론/코딩/긴 문맥. 최고 품질. (CO2: 0.872mg/token, 비용: 높음)
+def _build_model_catalog_text() -> str:
+    """카탈로그를 프롬프트용 텍스트로 변환 (가격·탄소·강점 포함)."""
+    lines = []
+    for mid, spec in get_all_models().items():
+        strengths = ", ".join(spec.strengths) if spec.strengths else "-"
+        rec = ", ".join(spec.recommended_for) if spec.recommended_for else "-"
+        lines.append(
+            f"- {mid} ({spec.display_name}, {spec.provider}) | "
+            f"tier: {spec.tier} / category: {spec.category} | "
+            f"입력 ${spec.input_cost_per_1m}/1M · 출력 ${spec.output_cost_per_1m}/1M · "
+            f"CO2 {spec.co2_mg_per_token}mg/token | "
+            f"강점: {strengths} | 적합: {rec}"
+        )
+    return "\n".join(lines)
 
-작업 유형 종류:
-- simple_qa: 단순 질문
-- summarize: 요약
-- translate: 번역
-- writing_edit: 문장 수정/작성
-- coding: 코딩
-- reasoning: 복잡한 추론/분석
-- planning: 기획/창작
-- sensitive: 중요/민감 답변
 
-난이도: low, medium, high
+def _build_system_prompt() -> str:
+    catalog_text = _build_model_catalog_text()
+    return f"""너는 ECOCACHE의 AI 라우팅 엔진이다.
+사용자의 요청을 분석해 실행 가능한 서브태스크로 분해하고,
+각 태스크마다 아래 모델 카탈로그에서 가장 적합한 모델 하나를 선택한다.
 
-운영 정책:
-- cost_first: 비용 절감 최우선 → 가능하면 gemini-flash, gpt-4o-mini 추천
-- carbon_first: 탄소 배출 최소화 → gemini-flash 우선
-- quality_first: 품질 우선 → 복잡한 작업은 claude-sonnet, gpt-4o
-- balanced: 균형
+[모델 카탈로그] (이 목록 안의 model_id만 사용할 것)
+{catalog_text}
 
-반드시 아래 JSON 형식으로만 응답해. 다른 텍스트 없이 JSON만:
-{
+[작업 유형] simple_qa, summarize, translate, writing_edit, coding, reasoning, planning, sensitive
+[난이도] low, medium, high
+
+[운영 정책별 선택 가이드]
+- cost_first: 비용을 최우선. 같은 품질이면 입력/출력 단가가 낮은 모델을 적극 선택 (nano/economy tier 우대)
+- carbon_first: CO2 배출 최소화 우선. co2_mg/token이 낮은 모델을 우대 (Gemini Flash, nano 계열 등)
+- quality_first: 품질 최우선. 복잡한 작업은 advanced tier(GPT-5, o3, Claude Opus 4 등)를 선택
+- balanced: 작업 난이도에 비례해 합리적으로 선택. 단순 작업엔 저비용, 복잡한 작업에만 고성능
+
+[모델 선택 원칙]
+1. 작업 난이도와 모델 tier를 매칭한다. low→economy/nano, medium→balanced, high→advanced
+2. 단순 작업(요약/번역/추출/분류)에 flagship/advanced 모델을 쓰지 마라. 명백한 낭비다.
+3. 코딩·추론·분석엔 해당 강점(strengths)을 가진 모델을 우선한다.
+4. 가능한 한 서브태스크마다 다른 모델을 배정해 다양성을 확보한다 (단, 정책과 작업 성격에 맞을 때만).
+5. reason에는 반드시 다음을 포함한다:
+   - 왜 이 작업에 이 tier가 적절한지
+   - 다른 후보 대비 비용 또는 탄소 측면의 이점
+   - 이 모델의 어떤 강점이 작업과 맞는지
+
+[출력 형식] 반드시 아래 JSON만 출력. 다른 텍스트 금지.
+{{
   "subtasks": [
-    {
+    {{
       "step": 1,
-      "action": "이 스텝에서 할 행동 (한국어, 짧게)",
+      "action": "이 스텝에서 수행할 구체적 행동 (한국어, 명확하게)",
       "task_type": "작업유형",
       "difficulty": "난이도",
-      "recommended_model": "추천 모델 ID",
-      "reason": "이 모델을 추천한 이유 (한국어, 1~2문장)"
-    }
+      "recommended_model": "카탈로그의 model_id",
+      "reason": "이 모델을 선택한 상세한 근거 (한국어, 2~3문장, 비용·탄소·강점 언급)"
+    }}
   ]
-}
+}}
 
-단일 작업이면 subtasks에 1개만 넣어.
-복합 작업이면 논리적 순서대로 분해해서 여러 개 넣어.
-각 스텝은 독립적으로 실행 가능해야 해."""
+단일 작업이면 subtasks에 1개, 복합 작업이면 논리적 순서로 여러 개로 분해한다.
+각 스텝은 독립적으로 실행 가능해야 한다."""
 
 
 def classify_and_decompose(
@@ -67,26 +84,31 @@ def classify_and_decompose(
     llm_client: BaseLLMClient,
 ) -> dict:
     """
-    LLM이 직접 요청을 분석하여 분해 + 분류 + 모델 추천을 수행합니다.
+    LLM이 직접 요청을 분석하여 분해 + 분류 + 모델 추천을 수행한다.
 
     Returns:
         {
-            "subtasks": [...],
-            "_classifier_input_tokens": int,   # 분류 호출에 쓴 토큰
+            "subtasks": [
+                {"step", "action", "task_type", "difficulty",
+                 "recommended_model", "reason"}, ...
+            ],
+            "_classifier_input_tokens": int,
             "_classifier_output_tokens": int,
         }
     """
+    system_prompt = _build_system_prompt()
     user_prompt = f"""사용자 요청: "{query}"
 운영 정책: {policy}
 
-이 요청을 분석해서 서브태스크로 분해하고, 각 태스크에 최적 모델을 추천해줘."""
+이 요청을 서브태스크로 분해하고, 각 태스크에 카탈로그의 최적 모델을 배정해줘.
+각 선택의 근거를 비용·탄소·강점 관점에서 구체적으로 설명해줘."""
 
     response = llm_client.generate(
-        model_id="claude-haiku",  # 분류기 자체는 haiku로 호출
+        model_id="claude-haiku",
         prompt=user_prompt,
-        system_prompt=CLASSIFIER_SYSTEM_PROMPT,
-        max_tokens=1500,
-        temperature=0.3,  # 분류는 일관성 있게
+        system_prompt=system_prompt,
+        max_tokens=2000,
+        temperature=0.4,
     )
 
     classifier_tokens = {
@@ -94,11 +116,8 @@ def classify_and_decompose(
         "_classifier_output_tokens": response.output_tokens,
     }
 
-    # JSON 파싱
     try:
-        # 응답에서 JSON 추출
         content = response.content.strip()
-        # ```json ... ``` 형태일 수 있으므로 처리
         if content.startswith("```"):
             content = content.split("```")[1]
             if content.startswith("json"):
@@ -107,7 +126,6 @@ def classify_and_decompose(
         result.update(classifier_tokens)
         return result
     except (json.JSONDecodeError, IndexError, KeyError):
-        # 파싱 실패 시 단일 태스크로 fallback
         return {
             "subtasks": [
                 {
@@ -115,8 +133,8 @@ def classify_and_decompose(
                     "action": query[:50],
                     "task_type": "simple_qa",
                     "difficulty": "medium",
-                    "recommended_model": "claude-haiku",
-                    "reason": "분류 실패로 기본 모델을 배정했습니다.",
+                    "recommended_model": "claude-3-5-haiku",
+                    "reason": "분류에 실패하여 기본 경량 모델을 배정했습니다.",
                 }
             ],
             **classifier_tokens,

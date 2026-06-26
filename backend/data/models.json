@@ -1,0 +1,491 @@
+{
+"gpt-4o": {
+"model_id": "gpt-4o",
+"display_name": "GPT-4o",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 2.5,
+"output_usd_per_1m_tokens": 10.0,
+"category": "flagship",
+"tier": "balanced",
+"strengths": [
+"multimodal",
+"general reasoning",
+"low latency"
+],
+"recommended_for": [
+"general assistants",
+"multimodal workflows",
+"production chat"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-4o-mini": {
+"model_id": "gpt-4o-mini",
+"display_name": "GPT-4o mini",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.15,
+"output_usd_per_1m_tokens": 0.6,
+"category": "small",
+"tier": "economy",
+"strengths": [
+"low cost",
+"low latency",
+"structured output"
+],
+"recommended_for": [
+"high-volume classification",
+"summarization",
+"simple chat"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-4.1": {
+"model_id": "gpt-4.1",
+"display_name": "GPT-4.1",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 2.0,
+"output_usd_per_1m_tokens": 8.0,
+"category": "flagship",
+"tier": "advanced",
+"strengths": [
+"coding",
+"instruction following",
+"long context"
+],
+"recommended_for": [
+"software engineering",
+"complex document tasks",
+"agent workflows"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-4.1-mini": {
+"model_id": "gpt-4.1-mini",
+"display_name": "GPT-4.1 mini",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.4,
+"output_usd_per_1m_tokens": 1.6,
+"category": "small",
+"tier": "balanced",
+"strengths": [
+"coding",
+"instruction following",
+"cost efficiency"
+],
+"recommended_for": [
+"code assistance",
+"document extraction",
+"general automation"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-4.1-nano": {
+"model_id": "gpt-4.1-nano",
+"display_name": "GPT-4.1 nano",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.1,
+"output_usd_per_1m_tokens": 0.4,
+"category": "nano",
+"tier": "economy",
+"strengths": [
+"very low cost",
+"low latency",
+"simple extraction"
+],
+"recommended_for": [
+"routing",
+"tagging",
+"high-volume extraction"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-5": {
+"model_id": "gpt-5",
+"display_name": "GPT-5",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 1.25,
+"output_usd_per_1m_tokens": 10.0,
+"category": "flagship",
+"tier": "advanced",
+"strengths": [
+"advanced reasoning",
+"coding",
+"agentic workflows"
+],
+"recommended_for": [
+"complex reasoning",
+"high-stakes review",
+"advanced coding"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"gpt-5-mini": {
+"model_id": "gpt-5-mini",
+"display_name": "GPT-5 mini",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.25,
+"output_usd_per_1m_tokens": 2.0,
+"category": "small",
+"tier": "balanced",
+"strengths": [
+"cost-aware reasoning",
+"coding",
+"high throughput"
+],
+"recommended_for": [
+"production assistants",
+"agent subtasks",
+"cost-sensitive coding"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"o3": {
+"model_id": "o3",
+"display_name": "o3",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 2.0,
+"output_usd_per_1m_tokens": 8.0,
+"category": "reasoning",
+"tier": "advanced",
+"strengths": [
+"deep reasoning",
+"math",
+"complex analysis"
+],
+"recommended_for": [
+"hard reasoning",
+"planning",
+"technical analysis"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"o4-mini": {
+"model_id": "o4-mini",
+"display_name": "o4-mini",
+"provider": "OpenAI",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 1.1,
+"output_usd_per_1m_tokens": 4.4,
+"category": "reasoning",
+"tier": "balanced",
+"strengths": [
+"reasoning",
+"coding",
+"cost-aware analysis"
+],
+"recommended_for": [
+"technical problem solving",
+"data analysis",
+"reasoning at scale"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://openai.com/api/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard OpenAI API text-token pricing for this global snapshot."
+},
+"claude-opus-4": {
+"model_id": "claude-opus-4",
+"display_name": "Claude Opus 4",
+"provider": "Anthropic",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 15.0,
+"output_usd_per_1m_tokens": 75.0,
+"category": "flagship",
+"tier": "advanced",
+"strengths": [
+"complex reasoning",
+"coding",
+"long-form analysis"
+],
+"recommended_for": [
+"complex agent tasks",
+"expert analysis",
+"high-quality generation"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard Anthropic API token pricing for this global snapshot."
+},
+"claude-sonnet-4": {
+"model_id": "claude-sonnet-4",
+"display_name": "Claude Sonnet 4",
+"provider": "Anthropic",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 3.0,
+"output_usd_per_1m_tokens": 15.0,
+"category": "flagship",
+"tier": "balanced",
+"strengths": [
+"coding",
+"reasoning",
+"instruction following"
+],
+"recommended_for": [
+"production agents",
+"software engineering",
+"document analysis"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard Anthropic API token pricing for this global snapshot."
+},
+"claude-3-5-haiku": {
+"model_id": "claude-3-5-haiku",
+"display_name": "Claude 3.5 Haiku",
+"provider": "Anthropic",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.8,
+"output_usd_per_1m_tokens": 4.0,
+"category": "small",
+"tier": "economy",
+"strengths": [
+"low latency",
+"high throughput",
+"classification"
+],
+"recommended_for": [
+"customer support",
+"summarization",
+"routing"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard Anthropic API token pricing for this global snapshot."
+},
+"gemini-2.0-flash": {
+"model_id": "gemini-2.0-flash",
+"display_name": "Gemini 2.0 Flash",
+"provider": "Google",
+"provider_route": "direct_api",
+"input_usd_per_1m_tokens": 0.1,
+"output_usd_per_1m_tokens": 0.4,
+"category": "small",
+"tier": "economy",
+"strengths": [
+"speed",
+"multimodal input",
+"high throughput"
+],
+"recommended_for": [
+"real-time chat",
+"image understanding",
+"batch extraction"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "provider_official_api",
+"pricing_confidence": "confirmed",
+"availability_scope": "provider_api",
+"production_note": "Direct API pricing. Verify official availability and pricing before production use.",
+"source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+"last_updated": "2026-06-26",
+"pricing_note": "Standard Gemini API text-token pricing for this global snapshot."
+},
+"writer-palmyra-x4": {
+"model_id": "writer-palmyra-x4",
+"display_name": "Writer Palmyra X4",
+"provider": "AWS Bedrock",
+"provider_route": "bedrock",
+"input_usd_per_1m_tokens": 2.5,
+"output_usd_per_1m_tokens": 10.0,
+"category": "flagship",
+"tier": "advanced",
+"strengths": [
+"enterprise writing",
+"text generation"
+],
+"recommended_for": [
+"enterprise assistants",
+"long-form content"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "aws_bedrock_region_unspecified",
+"pricing_confidence": "reference",
+"availability_scope": "global_reference",
+"production_note": "Pricing table did not identify a region. For this hackathon demo, this model is treated as using the same reference price across regions. Verify Seoul availability and pricing before production use.",
+"source_url": "https://aws.amazon.com/ko/bedrock/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "AWS Bedrock On-demand text-token pricing from a table without a region label. Region-specific pricing is assumed identical only for this hackathon demo."
+},
+"writer-palmyra-x5": {
+"model_id": "writer-palmyra-x5",
+"display_name": "Writer Palmyra X5",
+"provider": "AWS Bedrock",
+"provider_route": "bedrock",
+"input_usd_per_1m_tokens": 0.6,
+"output_usd_per_1m_tokens": 6.0,
+"category": "small",
+"tier": "balanced",
+"strengths": [
+"cost-aware writing",
+"text generation"
+],
+"recommended_for": [
+"enterprise assistants",
+"content generation"
+],
+"enabled": true,
+"region": null,
+"pricing_source": "aws_bedrock_region_unspecified",
+"pricing_confidence": "reference",
+"availability_scope": "global_reference",
+"production_note": "Pricing table did not identify a region. For this hackathon demo, this model is treated as using the same reference price across regions. Verify Seoul availability and pricing before production use.",
+"source_url": "https://aws.amazon.com/ko/bedrock/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "AWS Bedrock On-demand text-token pricing from a table without a region label. Region-specific pricing is assumed identical only for this hackathon demo."
+},
+"amazon-nova-2-omni-preview": {
+"model_id": "amazon-nova-2-omni-preview",
+"display_name": "Amazon Nova 2 Omni Preview",
+"provider": "AWS Bedrock",
+"provider_route": "bedrock",
+"input_usd_per_1m_tokens": 0.6,
+"output_usd_per_1m_tokens": 5.2,
+"category": "multimodal",
+"tier": "balanced",
+"strengths": [
+"multimodal",
+"general reasoning",
+"agent workflows"
+],
+"recommended_for": [
+"multimodal assistants",
+"agent workflows",
+"general automation"
+],
+"enabled": true,
+"region": "ap-northeast-2",
+"pricing_source": "aws_bedrock_seoul",
+"pricing_confidence": "reference",
+"availability_scope": "region_specific",
+"production_note": "AWS Bedrock Seoul region pricing for a preview model. Verify official availability and pricing before production use.",
+"source_url": "https://aws.amazon.com/ko/bedrock/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "AWS Bedrock Seoul On-demand text token pricing. Preview model, so availability and pricing should be rechecked before production."
+},
+"amazon-nova-2-pro-trial": {
+"model_id": "amazon-nova-2-pro-trial",
+"display_name": "Amazon Nova 2 Pro Trial",
+"provider": "AWS Bedrock",
+"provider_route": "bedrock",
+"input_usd_per_1m_tokens": 2.59,
+"output_usd_per_1m_tokens": 20.72,
+"category": "flagship",
+"tier": "advanced",
+"strengths": [
+"advanced reasoning",
+"complex analysis",
+"agent workflows"
+],
+"recommended_for": [
+"complex reasoning",
+"high-quality generation",
+"enterprise agent workflows"
+],
+"enabled": true,
+"region": "ap-northeast-2",
+"pricing_source": "aws_bedrock_seoul",
+"pricing_confidence": "reference",
+"availability_scope": "region_specific",
+"production_note": "AWS Bedrock Seoul region pricing for a trial model. Verify official availability and pricing before production use.",
+"source_url": "https://aws.amazon.com/ko/bedrock/pricing/",
+"last_updated": "2026-06-26",
+"pricing_note": "AWS Bedrock Seoul On-demand text token pricing. Trial model, so availability and pricing should be rechecked before production."
+}
+}

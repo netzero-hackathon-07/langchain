@@ -160,12 +160,12 @@ def plan_and_execute(request: PlanRequest):
         action = subtask["action"]
         task_type = subtask.get("task_type", "simple_qa")
         difficulty = subtask.get("difficulty", "medium")
-        recommended_model = subtask.get("recommended_model", "claude-haiku")
+        recommended_model = subtask.get("recommended_model", "claude-3-5-haiku")
         reason = subtask.get("reason", "")
 
         # LLM이 카탈로그에 없는 모델을 추천하면 fallback
         if recommended_model not in valid_models:
-            recommended_model = "gemini-flash"
+            recommended_model = "claude-3-5-haiku"
 
         # 각 스텝을 실제로 수행
         step_prompt = f"""작업: {action}
@@ -324,9 +324,16 @@ def list_models():
     catalog = get_all_models()
     return {
         model_id: {
-            "model_id": spec.model_id, "display_name": spec.display_name,
-            "provider": spec.provider, "co2_mg_per_token": spec.co2_mg_per_token,
-            "quality_score": spec.quality_score, "best_for": spec.best_for,
+            "model_id": spec.model_id,
+            "display_name": spec.display_name,
+            "provider": spec.provider,
+            "tier": spec.tier,
+            "category": spec.category,
+            "input_cost_per_1m": spec.input_cost_per_1m,
+            "output_cost_per_1m": spec.output_cost_per_1m,
+            "co2_mg_per_token": spec.co2_mg_per_token,
+            "strengths": spec.strengths,
+            "recommended_for": spec.recommended_for,
         }
         for model_id, spec in catalog.items()
     }

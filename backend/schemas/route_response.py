@@ -16,7 +16,7 @@ class PlanRequest(BaseModel):
     """POST /plan, POST /plan/graph 요청 바디"""
     query: str = Field(..., description="복합 작업 요청 텍스트")
     policy: str = Field(default="balanced", description="운영 정책: cost_first, carbon_first, quality_first, balanced")
-    baseline_model: str = Field(default="claude-sonnet", description="비교 기준 모델 (전부 이 모델로 처리했을 때 대비 절감량 계산)")
+    baseline_model: str = Field(default="claude-opus-4", description="비교 기준 모델 (전부 이 모델로 처리했을 때 대비 절감량 계산)")
 
 
 class StepDetail(BaseModel):
