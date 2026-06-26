@@ -4,8 +4,8 @@
 모델 추천 엔진(router/)과 모델 호출부(llm/)를 분리하기 위한 레이어입니다.
 
 사용법:
-    client = MockLLMClient()  # 또는 BedrockLLMClient()
-    response = client.generate(model_id="gemini-flash", prompt="안녕")
+    client = AnthropicLLMClient(api_key=...)
+    response = client.generate(model_id="claude-haiku", prompt="안녕")
 """
 
 from abc import ABC, abstractmethod

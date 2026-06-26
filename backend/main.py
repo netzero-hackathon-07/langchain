@@ -1,6 +1,6 @@
 """ECOCACHE Backend - AI Model Routing Engine
 
-Claude 3.5 Haiku가 직접:
+Claude Haiku 4.5가 직접:
 1. 사용자 요청을 분석/분해
 2. 각 서브태스크에 최적 모델 추천
 3. 각 스텝을 실제로 수행
@@ -87,7 +87,7 @@ def check_budget():
 
 app = FastAPI(
     title="ECOCACHE - AI Model Routing Engine",
-    description="Claude 3.5 Haiku가 요청을 분석/분해하고, 각 스텝에 최적 모델을 추천하는 라우팅 엔진",
+    description="Claude Haiku 4.5가 요청을 분석/분해하고, 각 스텝에 최적 모델을 추천하는 라우팅 엔진",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",

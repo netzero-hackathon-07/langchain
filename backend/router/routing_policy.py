@@ -1,7 +1,7 @@
 """라우팅 정책 관리
 
 정책별 가중치를 정의합니다.
-model_selector에서 이 가중치를 사용해 최종 점수를 계산합니다.
+운영 정책 메타데이터(라벨/설명)를 /policies 엔드포인트에서 제공합니다.
 """
 
 from typing import Dict
