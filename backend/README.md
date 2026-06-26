@@ -31,7 +31,12 @@ cd backend
 pip install -r requirements.txt
 ```
 
-`.env` 파일에 API 키 설정:
+`.env` 파일에 API 키 설정 (`.env.example`을 복사해서 만들면 편함):
+```bash
+copy .env.example .env     # Windows
+# cp .env.example .env      # Mac/Linux
+```
+`.env` 내용:
 ```
 ANTHROPIC_API_KEY=sk-ant-...
 ```
